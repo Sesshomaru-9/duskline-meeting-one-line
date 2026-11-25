@@ -10,7 +10,7 @@ One deadpan line that could have replaced an entire pointless meeting, written b
 
 > No update, no decision, and nobody in this room can make one — see you at the same meeting next week.
 
-101 characters (103 bytes UTF-8), one line, one sentence. A roll-call of everything the meeting failed to produce — no update, no decision, nobody empowered to decide — capped by the sting that the same empty meeting recurs next week anyway.
+101 characters (103 bytes UTF-8), one line, one sentence, no trailing newline. A roll-call of everything the meeting failed to produce — no update, no decision, nobody empowered to decide — capped by the sting that the same empty meeting recurs next week anyway. The meeting is the butt of the joke, never any one person in it.
 
 ## Run it
 
@@ -18,7 +18,7 @@ One deadpan line that could have replaced an entire pointless meeting, written b
 python3 main.py
 ```
 
-Deterministic, Python 3.13 standard library only, no network. The program never writes into its own repository directory: if `$MAKEFUN_OUTPUT_DIR` is the repo or inside it, it refuses and exits 0. Without the variable it uses a temporary directory outside the repo.
+Deterministic, Python standard library only, no network access. The program never writes into its own repository directory: if `$MAKEFUN_OUTPUT_DIR` is the repo or inside it, it refuses quietly and exits 0 having written nothing. Without the variable it falls back to a temporary directory outside the repo. Any failure exits 0 having written nothing, so a bad run can never leave a partial entry behind.
 
 ## License
 
