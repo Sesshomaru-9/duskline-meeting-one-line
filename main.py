@@ -79,6 +79,15 @@ def resolve_output_dir():
     return out
 
 
+def verify_entry(path):
+    """True only when the file on disk matches LINE exactly."""
+    try:
+        with open(path, "r", encoding="utf-8") as handle:
+            return handle.read() == LINE
+    except Exception:
+        return False
+
+
 def write_entry(directory):
     """Write the line to ``directory/entry.txt`` and verify the round
     trip. Returns True only when the file on disk matches LINE exactly."""
@@ -89,9 +98,8 @@ def write_entry(directory):
         os.makedirs(directory, exist_ok=True)
         with open(path, "w", encoding="utf-8", newline="") as handle:
             handle.write(LINE)
-        with open(path, "r", encoding="utf-8") as handle:
-            if handle.read() != LINE:
-                raise ValueError("round-trip mismatch")
+        if not verify_entry(path):
+            raise ValueError("round-trip mismatch")
     except Exception:
         try:
             os.remove(path)
